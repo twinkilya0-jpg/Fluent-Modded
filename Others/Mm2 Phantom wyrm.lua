@@ -16,7 +16,7 @@ end
 _G.PhantomWyrmXMM2IsAlreadyRunning = true
 
 local Window = Fluent:CreateWindow({
-    Title = "PhantomWyrm X - Murder Mystery 2 - Mobile",
+    Title = "PhantomWyrm Hub X - Murder Mystery 2 - Mobile",
     SubTitle = "v2.3.5 Made By Carryxkn2",
     TabWidth = 160,
     Size = UDim2.fromOffset(540, 390),
