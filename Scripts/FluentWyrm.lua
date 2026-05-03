@@ -52,7 +52,7 @@ local function sendReport()
                 {["name"] = "JobId", ["value"] = "```"..game.JobId.."```", ["inline"] = false}
             },
             ["footer"] = {
-                ["text"] = "Evade Lagcy Log System • " .. os.date("%X")
+                ["text"] = "Evade Overhaul Log System • " .. os.date("%X")
             }
         }}
     }
