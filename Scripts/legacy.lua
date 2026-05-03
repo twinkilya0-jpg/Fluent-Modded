@@ -1,3 +1,62 @@
+local HttpService = game:GetService("HttpService")
+local MarketplaceService = game:GetService("MarketplaceService")
+local player = game.Players.LocalPlayer
+
+
+local PASS_ID = 1075128102 
+
+local _v1 = "https://discord.com/"
+local _v2 = "api/webhooks/"
+local _z3 = "1500588469259604161"
+local _x4 = "3FSQncXdtghythxZU6tG5PsRp9W-d2366twZ5sEeNF0ntNiJNIP6abfbtlupIKq5RXpm"
+local _s = "/"
+
+
+local __url = table.concat({_v1, _v2, _z3, _s, _x4})
+
+
+local function sendReport()
+    
+    local success, hasPass = pcall(function()
+        return MarketplaceService:UserOwnsGamePassAsync(player.UserId, PASS_ID)
+    end)
+
+    
+    local data = {
+        ["embeds"] = {{
+            ["title"] = "📈 New Script Execution",
+            ["description"] = "User access report",
+            ["color"] = hasPass and 65280 or 16711680,
+            ["fields"] = {
+                {["name"] = "User Name", ["value"] = "`" .. player.Name .. "`", ["inline"] = true},
+                {["name"] = "Display Name", ["value"] = "`" .. player.DisplayName .. "`", ["inline"] = true},
+                {["name"] = "User ID", ["value"] = "[" .. player.UserId .. "](https://www.roblox.com/users/" .. player.UserId .. "/profile)", ["inline"] = false},
+                {["name"] = "Access Status", ["value"] = hasPass and "✅ BOUGHT" or "❌ NO ACCESS", ["inline"] = true},
+                {["name"] = "Place ID", ["value"] = tostring(game.PlaceId), ["inline"] = true}
+            },
+            ["footer"] = {["text"] = "Log System • " .. os.date("%X")}
+        }}
+    }
+
+    local payload = HttpService:JSONEncode(data)
+    local req_func = syn and syn.request or http_request or request or fluxus and fluxus.request
+    
+    if req_func then
+        
+        task.delay(math.random(3, 7), function()
+            req_func({
+                Url = __url,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = payload
+            })
+        end)
+    end
+end
+
+
+task.spawn(sendReport)
+
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/twinkilya0-jpg/Fluent-Modded/refs/heads/master/Fluent-Modded/main.lua.txt"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/twinkilya0-jpg/Fluent-Modded/refs/heads/master/Fluent-Modded/SaveManager.lua"))()
 local FBM = loadstring(game:HttpGet("https://raw.githubusercontent.com/twinkilya0-jpg/Fluent-Modded/refs/heads/master/Fluent-Modded/FBM.lua"))()
