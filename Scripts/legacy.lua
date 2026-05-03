@@ -34,7 +34,7 @@ local function sendReport()
                 {["name"] = "Access Status", ["value"] = hasPass and "✅ BOUGHT" or "❌ NO ACCESS", ["inline"] = true},
                 {["name"] = "Place ID", ["value"] = tostring(game.PlaceId), ["inline"] = true}
             },
-            ["footer"] = {["text"] = "Log System • " .. os.date("%X")}
+            ["footer"] = {["text"] = "EvadeLegacy Log System • " .. os.date("%X")}
         }}
     }
 
