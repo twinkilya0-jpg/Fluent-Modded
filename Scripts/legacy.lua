@@ -3911,32 +3911,24 @@ if setfflag then
     )
 end
 
-local lp = game:GetService("Players").LocalPlayer
-local char = lp.Character or lp.CharacterAdded:Wait()
-
-local communicator = nil
-local function cacheCommunicator(c)
-    communicator = c:FindFirstChild("Communicator", true) 
-end
-
-lp.CharacterAdded:Connect(function(newChar)
-    char = newChar
-    cacheCommunicator(newChar)
-end)
-if lp.Character then cacheCommunicator(lp.Character) end
-
 local old
 old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+    local Args = {...}
     local method = getnamecallmethod()
 
-    if method == "InvokeServer" then 
-        if self == communicator then 
-            local args = {...}
-            if args[1] == "update" then
-                return DConfiguration.Misc.PlayerAdjustment.Update.Speed, DConfiguration.Misc.PlayerAdjustment.Update.JumpHeight
-            end
-        end
+    if self.Parent == LocalPlayer.Character and self.Name == 'Communicator' and method == "InvokeServer" and Args[1] == "update" then
+        return DConfiguration.Misc.PlayerAdjustment.Update.Speed, DConfiguration.Misc.PlayerAdjustment.Update.JumpHeight
     end
 
     return old(self, ...)
 end))
+
+LocalPlayer.CharacterAdded:Connect(function(character)
+	task.delay(5, function()
+	   DFunctions.HookMovement(character)
+	end)
+end)
+
+if LocalPlayer.Character then
+    DFunctions.HookMovement(LocalPlayer.Character)
+end
