@@ -5620,7 +5620,7 @@ Tabs.Info:AddButton({
     Title = "Discord Server",
     Description = "Click to copy link",
     Callback = function()
-        setclipboard("https://discord.gg/B5rMG9CaA")
+        setclipboard("https://discord.gg/NZneWgcckM")
     end
 })
 
